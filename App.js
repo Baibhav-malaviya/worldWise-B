@@ -91,8 +91,13 @@ const City = model("City", citySchema);
 
 // City.insertMany(cities).then((city) => console.log("Inserted successfully"));
 
-app.get("/data", (req, res) => {
+app.get("/cities", (req, res) => {
   City.find().then((city) => res.send(city));
+});
+
+app.get("/cities/:id", (req, res) => {
+  const id = req.params.id;
+  City.findOne({ _id: id }).then((city) => res.send(city));
 });
 
 app.listen(PORT, () => {

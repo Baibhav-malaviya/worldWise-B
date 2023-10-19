@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
 const PORT = process.env.PORT || 3000;
 
 // app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 //!    ################### Code to connect the node with local MongoDB
 // mongoose.connect("mongodb://127.0.0.1:27017/worldWise");

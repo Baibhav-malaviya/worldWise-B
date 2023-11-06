@@ -102,6 +102,7 @@ app.get("/cities/:id", (req, res) => {
 
 app.post("/cities", (req, res) => {
 	const newCity = new City(req.body);
+	console.log("WELCOME TO THE POST METHOD: ", newCity);
 	newCity.save();
 });
 

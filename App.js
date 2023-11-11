@@ -7,8 +7,9 @@ const { Schema, model } = mongoose;
 
 const PORT = process.env.PORT || 3000;
 
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.json());
 
 //!    ################### Code to connect the node with local MongoDB
 // mongoose.connect("mongodb://127.0.0.1:27017/worldWise");
@@ -101,9 +102,9 @@ app.get("/cities/:id", (req, res) => {
 });
 
 app.post("/cities", (req, res) => {
-	const newCity = new City(req.body);
-	console.log("WELCOME TO THE POST METHOD: ", newCity);
-	newCity.save();
+	console.log("BACKEND POST METHOD: ", req.body);
+	// const newCity = new City(req.body);
+	// newCity.save();
 });
 
 app.listen(PORT, () => {

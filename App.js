@@ -103,8 +103,8 @@ app.get("/cities/:id", (req, res) => {
 
 app.post("/cities", (req, res) => {
 	console.log("BACKEND POST METHOD: ", req.body);
-	// const newCity = new City(req.body);
-	// newCity.save();
+	const newCity = new City(req.body);
+	newCity.save();
 });
 
 app.listen(PORT, () => {

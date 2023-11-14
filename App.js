@@ -93,7 +93,7 @@ const City = model("City", citySchema);
 // City.insertMany(cities).then((city) => console.log("Inserted successfully"));
 
 app.get("/cities", (req, res) => {
-	City.find().then((city) => res.send(city));
+	City.find().then((cities) => res.send(cities));
 });
 
 app.get("/cities/:id", (req, res) => {
@@ -101,10 +101,35 @@ app.get("/cities/:id", (req, res) => {
 	City.findOne({ _id: id }).then((city) => res.send(city));
 });
 
-app.post("/cities", (req, res) => {
-	console.log("BACKEND POST METHOD: ", req.body);
-	const newCity = new City(req.body);
-	newCity.save();
+app.delete("/cities/:id", async (req, res) => {
+	const id = req.params.id;
+	try {
+		const deleteCity = await City.findByIdAndDelete(id);
+		if (!deleteCity) {
+			return res.status(404).json({ message: "City not found" });
+		}
+		const cities = await City.find();
+		res.send(cities);
+	} catch (error) {
+		console.log("Something went wrong in deleting the city", error);
+	}
+});
+
+// app.post("/cities", (req, res) => {
+// 	const newCity = new City(req.body);
+// 	newCity.save();
+// 	City.findOne({ _id: id }).then((city) => res.send(city));
+// });
+
+app.post("/cities", async (req, res) => {
+	try {
+		const newCity = new City(req.body);
+		await newCity.save();
+		const cities = await City.find();
+		res.send(cities);
+	} catch (error) {
+		console.log("Error in saving the city", error);
+	}
 });
 
 app.listen(PORT, () => {

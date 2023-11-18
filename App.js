@@ -9,6 +9,7 @@ const { getCities } = require("./src/controllers/getCities");
 const { postCity } = require("./src/controllers/postCity");
 const { getCityById } = require("./src/controllers/getCityById");
 const { deleteCityById } = require("./src/controllers/deleteCityById");
+const { doExist, registeredUser } = require("./src/controllers/register");
 
 const PORT = process.env.PORT || 3000;
 
@@ -23,6 +24,8 @@ app.use(express.json());
 		console.log("Can't call the connectDb function");
 	}
 })();
+
+app.post("/signUp", doExist, registeredUser);
 
 app.route("/cities").get(getCities).post(postCity);
 

@@ -1,6 +1,5 @@
 const { getUser } = require("../authentication/login.authentication");
 const { City } = require("../model/City.model");
-const nodeCache = require("node-cache");
 const { User } = require("../model/User.model");
 
 const getCities = async (req, res) => {

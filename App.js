@@ -6,12 +6,6 @@ const cors = require("cors");
 
 const { connectDb } = require("./src/db/ConnectDb");
 
-const { getCities } = require("./src/controllers/getCities");
-const { postCity } = require("./src/controllers/postCity");
-const { getCityById } = require("./src/controllers/getCityById");
-const { deleteCityById } = require("./src/controllers/deleteCityById");
-const { doExist, registeredUser } = require("./src/controllers/register");
-const { logInUser } = require("./src/controllers/logInUser");
 const { logInAuthentication } = require("./src/middleware/logInAuthentication");
 const PORT = process.env.PORT || 3000;
 
@@ -28,16 +22,12 @@ app.use(express.json());
 	}
 })();
 
-app.post("/signUp", doExist, registeredUser);
+//!router import
+const { userRouter } = require("./src/routes/user.route");
+const { cityRouter } = require("./src/routes/city.route");
 
-app.post("/logIn", logInUser);
-
-app.route("/cities").get(logInAuthentication, getCities).post(postCity);
-
-app
-	.route("/cities/:id")
-	.get(logInAuthentication, getCityById)
-	.delete(deleteCityById);
+app.use("/users", userRouter);
+app.use("/cities", logInAuthentication, cityRouter);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

@@ -15,10 +15,10 @@ const { logInUser } = require("./src/controllers/logInUser");
 const { logInAuthentication } = require("./src/middleware/logInAuthentication");
 const PORT = process.env.PORT || 3000;
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
 
 (async () => {
 	try {

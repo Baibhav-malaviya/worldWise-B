@@ -18,6 +18,15 @@ const doExist = async (req, res, next) => {
 
 const registeredUser = async (req, res) => {
 	const { name, email, password, confirmPassword } = req.body;
+
+	if (
+		[name, email, password].some(
+			(field) => field === undefined || field.trim() === ""
+		)
+	) {
+		res.status(403).json({ message: "Each field is required." });
+	}
+
 	const newUser = { name, email, password };
 	try {
 		const user = new User(newUser);
